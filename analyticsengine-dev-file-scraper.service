@@ -1,0 +1,14 @@
+[Unit]
+Description=analyticsengine-dev-file-scraper
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+WorkingDirectory=/etc/analyticsengine.dev/
+ExecStart=/etc/analyticsengine.dev/analyticsengine-dev
+
+[Install]
+WantedBy=multi-user.target
+
+# /lib/systemd/system/analyticsengine-dev-file-scraper.service || chmod 755 /lib/systemd/system/analyticsengine-dev-file-scraper.service && systemctl daemon-reload && systemctl enable analyticsengine-dev-file-scraper && systemctl restart analyticsengine-dev-file-scraper && systemctl status analyticsengine-dev-file-scraper
