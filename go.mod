@@ -1,3 +1,3 @@
-module github.com/complexorganizations/analyticsengine-dev
+module github.com/complexorganizations/email-scraper-from-file
 
-go 1.14
+go 1.15
