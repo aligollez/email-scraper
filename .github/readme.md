@@ -2,37 +2,20 @@
 
 ---
 ### Features
-- 
-- 
-- 
-- 
+- Scrape emails from any files
+- Validate emails and than save them
 
 ---
 ### Q&A
 
-How
-- 
-- 
-- 
-- 
+How do i use this?
+- You need to clone this repo and than have your file with the list of emails and this will go through them and validate them, after doing that it will save the valid ones to a differnt file.
 
-Which
-- 
-- 
-- 
--
+How many emails can this validate?
+- As many as u want, there is no limit
 
-Is
-- 
-- 
-- 
--
-
-How 
-- 
-- 
-- 
--
+Why was this made?
+- To validate large ammount of emails.
 
 ---
 ### Author
