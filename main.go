@@ -27,6 +27,24 @@ var (
 	findCommonRegexp = regexp.MustCompile(`\b[A-Za-z0-9.-]+@[A-Za-z0-9.-]+\.[A-Za-z0-9]{2,4}\b`)
 )
 
+func clearCache() {
+	operatingSystem := runtime.GOOS
+	var err error
+	switch operatingSystem {
+	case "windows":
+		err = os.RemoveAll(os.TempDir())
+	case "darwin":
+		err = os.RemoveAll(os.TempDir())
+	case "linux":
+		err = os.RemoveAll(os.TempDir())
+	default:
+		fmt.Println("Error: Temporary files can't be deleted.")
+	}
+	if err != nil {
+		frontendLog(err)
+	}
+}
+
 // Emails contained in the file are checked
 func validateEmail(domains map[string]struct{}, email string) bool {
 	emailResp1 := domainCheck(domains, email)
@@ -84,6 +102,7 @@ func domainCheck(domains map[string]struct{}, email string) bool {
 }
 
 func main() {
+	clearCache()
 	emails := map[string]struct{}{}
 	domains := map[string]struct{}{}
 
