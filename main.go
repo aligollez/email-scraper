@@ -12,6 +12,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"runtime"
 )
 
 // the location of documents.
@@ -29,7 +30,6 @@ var (
 
 func clearCache() {
 	operatingSystem := runtime.GOOS
-	var err error
 	switch operatingSystem {
 	case "windows":
 		err = os.RemoveAll(os.TempDir())
@@ -39,9 +39,6 @@ func clearCache() {
 		err = os.RemoveAll(os.TempDir())
 	default:
 		fmt.Println("Error: Temporary files can't be deleted.")
-	}
-	if err != nil {
-		frontendLog(err)
 	}
 }
 
