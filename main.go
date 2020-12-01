@@ -25,7 +25,7 @@ const (
 
 // Using this regex to locate emails that appear on a document file
 var (
-	findCommonRegexp = regexp.MustCompile(`\b[A-Za-z0-9.-]+@[A-Za-z0-9.-]+\.[A-Za-z0-9]{2,4}\b`)
+	findCommonRegexp = regexp.MustCompile(`[A-Za-z0-9.-]+@[A-Za-z0-9.-]+\.[A-Za-z0-9]{2,4}`)
 )
 
 func clearCache() {
