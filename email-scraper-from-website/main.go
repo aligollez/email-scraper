@@ -22,30 +22,22 @@ type Infos struct {
 }
 
 func writeToFile(data map[string][]string) {
-
 	file, _ := json.MarshalIndent(data, "", " ")
-
 	_ = ioutil.WriteFile("emails.json", file, 0644)
 }
 
 func main() {
-
 	infos := Infos{data: make(map[string][]string)}
-
 	// Instantiate default collector
 	c := colly.NewCollector(
 		colly.AllowedDomains(allowedDomain...),
 	)
 	c.AllowURLRevisit = false
-
 	c.Limit(&colly.LimitRule{DomainGlob: "*", Parallelism: parallelThreads})
-
 	c.OnHTML("html", func(e *colly.HTMLElement) {
 		re := regexp.MustCompile(`\b[A-Za-z0-9.-]+@[A-Za-z0-9.-]+\.[A-Za-z0-9]{2,4}\b`)
 		emails := re.FindAll([]byte(e.Text), -1)
-
 		// fmt.Printf("%q\n", emails)
-
 		for _, s := range emails {
 			email := string(s)
 			// fmt.Println(email)
@@ -55,10 +47,8 @@ func main() {
 				infos.data[e.Request.URL.Host] = append(infos.data[e.Request.URL.Host], email)
 			}
 		}
-
 		re2 := regexp.MustCompile(`\b[A-Za-z0-9]+\.[A-Za-z0-9]+\[at\][A-Za-z0-9]+\[dot\][A-Za-z0-9]+\b`)
 		emails2 := re2.FindAll([]byte(e.Text), -1)
-
 		for _, s := range emails2 {
 			email := string(s)
 			_, ok := emailsAdded[email]
@@ -74,12 +64,10 @@ func main() {
 		link := e.Attr("href")
 		// Print link
 		// fmt.Printf("Link found: %q -> %s\n", e.Text, link)
-
 		// Visit link found on page
 		// Only those links are visited which are in AllowedDomains
 		c.Visit(e.Request.AbsoluteURL(link))
 	})
-
 	// Before making a request print "Visiting ..."
 	c.OnRequest(func(r *colly.Request) {
 		fmt.Println("Visiting", r.URL.String())
@@ -88,9 +76,7 @@ func main() {
 			r.Abort()
 		}
 	})
-
 	c.Visit("https://" + allowedDomain[0])
-
 	c.Wait()
 	writeToFile(infos.data)
 }
