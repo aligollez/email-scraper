@@ -1,4 +1,4 @@
-### Email scraper from file
+### Email scraper
 
 ---
 ### Features
