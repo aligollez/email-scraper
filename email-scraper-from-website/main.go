@@ -35,7 +35,7 @@ func main() {
 	c.AllowURLRevisit = false
 	c.Limit(&colly.LimitRule{DomainGlob: "*", Parallelism: parallelThreads})
 	c.OnHTML("html", func(e *colly.HTMLElement) {
-		re := regexp.MustCompile(`\b[A-Za-z0-9.-]+@[A-Za-z0-9.-]+\.[A-Za-z0-9]{2,4}\b`)
+		re := regexp.MustCompile(`[A-Za-z0-9.-]+@[A-Za-z0-9.-]+\.[A-Za-z0-9]{2,4}`)
 		emails := re.FindAll([]byte(e.Text), -1)
 		// fmt.Printf("%q\n", emails)
 		for _, s := range emails {
@@ -47,7 +47,7 @@ func main() {
 				infos.data[e.Request.URL.Host] = append(infos.data[e.Request.URL.Host], email)
 			}
 		}
-		re2 := regexp.MustCompile(`\b[A-Za-z0-9]+\.[A-Za-z0-9]+\[at\][A-Za-z0-9]+\[dot\][A-Za-z0-9]+\b`)
+		re2 := regexp.MustCompile(`[A-Za-z0-9]+\.[A-Za-z0-9]+\[at\][A-Za-z0-9]+\[dot\][A-Za-z0-9]+`)
 		emails2 := re2.FindAll([]byte(e.Text), -1)
 		for _, s := range emails2 {
 			email := string(s)
