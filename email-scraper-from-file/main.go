@@ -31,11 +31,7 @@ var (
 func clearCache() {
 	operatingSystem := runtime.GOOS
 	switch operatingSystem {
-	case "windows":
-		os.RemoveAll(os.TempDir())
-	case "darwin":
-		os.RemoveAll(os.TempDir())
-	case "linux":
+	case "windows", "darwin", "linux":
 		os.RemoveAll(os.TempDir())
 	default:
 		fmt.Println("Error: Temporary files can't be deleted.")
