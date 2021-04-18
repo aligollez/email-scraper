@@ -29,8 +29,7 @@ var (
 )
 
 func clearCache() {
-	operatingSystem := runtime.GOOS
-	switch operatingSystem {
+	switch runtime.GOOS {
 	case "windows", "darwin", "linux":
 		os.RemoveAll(os.TempDir())
 	default:
