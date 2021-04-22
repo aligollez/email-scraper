@@ -15,17 +15,18 @@ import (
 	"runtime"
 )
 
+// Using this regex to locate emails that appear on a document file
+var (
+	findCommonRegexp = regexp.MustCompile(`[A-Za-z0-9.-]+@[A-Za-z0-9.-]+\.[A-Za-z0-9]{2,4}`)
+)
+
+
 // the location of documents.
 const (
 	persistentFileName = "persistent.txt"
 	inputFileName      = "input.json"
 	outputFileName     = "output.json"
 	domainsFileName    = "domains.txt"
-)
-
-// Using this regex to locate emails that appear on a document file
-var (
-	findCommonRegexp = regexp.MustCompile(`[A-Za-z0-9.-]+@[A-Za-z0-9.-]+\.[A-Za-z0-9]{2,4}`)
 )
 
 func clearCache() {
