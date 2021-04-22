@@ -3,21 +3,27 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gocolly/colly"
-	"os"
+	"io/ioutil"
 	"regexp"
 	"strings"
+
+	"github.com/gocolly/colly"
 )
 
-var (
-	allowedDomain                  = []string{"https://prajwalkoirala.com"}
-	emailsAdded     map[string]int = make(map[string]int)
-	parallelThreads                = 25
-)
+var allowedDomain = []string{"www.prajwalkoirala.com"}
+
+var emailsAdded map[string]int = make(map[string]int)
+
+const parallelThreads = 25
 
 //Infos info
 type Infos struct {
 	data map[string][]string
+}
+
+func writeToFile(data map[string][]string) {
+	file, _ := json.MarshalIndent(data, "", " ")
+	_ = ioutil.WriteFile("emails.json", file, 0644)
 }
 
 func main() {
@@ -66,12 +72,7 @@ func main() {
 			r.Abort()
 		}
 	})
-	c.Visit(allowedDomain[0])
+	c.Visit("https://" + allowedDomain[0])
 	c.Wait()
 	writeToFile(infos.data)
-}
-
-func writeToFile(data map[string][]string) {
-	file, _ := json.MarshalIndent(data, "", " ")
-	_ = os.WriteFile("emails.json", file, 0644)
 }
