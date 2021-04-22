@@ -57,7 +57,7 @@ func init() {
 	case "windows", "darwin", "linux":
 		os.RemoveAll(os.TempDir())
 	default:
-		fmt.Println("Error: Temporary files can't be deleted.")
+		log.Println("Error: Temporary files can't be deleted.")
 	}
 }
 
