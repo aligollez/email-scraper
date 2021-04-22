@@ -3,17 +3,17 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gocolly/colly"
+	"log"
 	"os"
 	"regexp"
 	"strings"
-	"github.com/gocolly/colly"
 )
 
 var allowedDomain = []string{"www.prajwalkoirala.com"}
-
 var emailsAdded map[string]int = make(map[string]int)
-
-const parallelThreads = 25
+var parallelThreads = 25
+var err error
 
 //Infos info
 type Infos struct {
@@ -21,8 +21,14 @@ type Infos struct {
 }
 
 func writeToFile(data map[string][]string) {
-	file, _ := json.MarshalIndent(data, "", " ")
-	_ = os.WriteFile("emails.json", file, 0644)
+	file, err := json.MarshalIndent(data, "", " ")
+	if err != nil {
+		log.Println(err)
+	}
+	err = os.WriteFile("emails.json", file, 0644)
+	if err != nil {
+		log.Println(err)
+	}
 }
 
 func main() {
