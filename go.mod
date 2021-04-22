@@ -1,4 +1,4 @@
-module email-scraper
+module github.com/complexorganizations/email-scraper
 
 go 1.16
 
