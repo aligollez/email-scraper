@@ -52,16 +52,6 @@ func main() {
 				infos.data[e.Request.URL.Host] = append(infos.data[e.Request.URL.Host], email)
 			}
 		}
-		re2 := regexp.MustCompile(`[A-Za-z0-9]+\.[A-Za-z0-9]+\[at\][A-Za-z0-9]+\[dot\][A-Za-z0-9]+`)
-		emails2 := re2.FindAll([]byte(e.Text), -1)
-		for _, s := range emails2 {
-			email := string(s)
-			_, ok := emailsAdded[email]
-			if !ok {
-				// fmt.Println(email)
-				infos.data[e.Request.URL.Host] = append(infos.data[e.Request.URL.Host], email)
-			}
-		}
 	})
 	// On every a element which has href attribute call callback
 	c.OnHTML("a[href]", func(e *colly.HTMLElement) {
