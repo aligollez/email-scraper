@@ -3,10 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"regexp"
 	"strings"
-
 	"github.com/gocolly/colly"
 )
 
@@ -23,7 +22,7 @@ type Infos struct {
 
 func writeToFile(data map[string][]string) {
 	file, _ := json.MarshalIndent(data, "", " ")
-	_ = ioutil.WriteFile("emails.json", file, 0644)
+	_ = os.WriteFile("emails.json", file, 0644)
 }
 
 func main() {
