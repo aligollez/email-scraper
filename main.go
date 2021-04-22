@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	allowedDomain                  = []string{"prajwalkoirala.com"}
+	allowedDomain                  = []string{"https://prajwalkoirala.com"}
 	emailsAdded     map[string]int = make(map[string]int)
 	parallelThreads                = 25
 )
@@ -66,7 +66,7 @@ func main() {
 			r.Abort()
 		}
 	})
-	c.Visit("https://" + allowedDomain[0])
+	c.Visit(allowedDomain[0])
 	c.Wait()
 	writeToFile(infos.data)
 }
