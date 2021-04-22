@@ -15,20 +15,9 @@ var emailsAdded map[string]int = make(map[string]int)
 var parallelThreads = 25
 var err error
 
-//Infos info
+// Type of info
 type Infos struct {
 	data map[string][]string
-}
-
-func writeToFile(data map[string][]string) {
-	file, err := json.MarshalIndent(data, "", " ")
-	if err != nil {
-		log.Println(err)
-	}
-	err = os.WriteFile("emails.json", file, 0644)
-	if err != nil {
-		log.Println(err)
-	}
 }
 
 func main() {
@@ -70,4 +59,15 @@ func main() {
 	c.Visit("https://" + allowedDomain[0])
 	c.Wait()
 	writeToFile(infos.data)
+}
+
+func writeToFile(data map[string][]string) {
+	file, err := json.MarshalIndent(data, "", " ")
+	if err != nil {
+		log.Println(err)
+	}
+	err = os.WriteFile("emails.json", file, 0644)
+	if err != nil {
+		log.Println(err)
+	}
 }
