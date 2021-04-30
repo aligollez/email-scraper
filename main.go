@@ -3,17 +3,20 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gocolly/colly"
 	"log"
 	"os"
 	"regexp"
 	"strings"
+
+	"github.com/gocolly/colly"
 )
 
-var allowedDomain = []string{"www.prajwalkoirala.com"}
-var emailsAdded map[string]int = make(map[string]int)
-var parallelThreads = 25
-var err error
+var (
+	allowedDomain                  = []string{"www.prajwalkoirala.com"}
+	emailsAdded     map[string]int = make(map[string]int)
+	parallelThreads                = 25
+	err             error
+)
 
 // Type of info
 type Infos struct {
