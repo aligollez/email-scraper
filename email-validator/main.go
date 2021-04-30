@@ -16,14 +16,16 @@ import (
 	"strings"
 )
 
-var persistentFileName string
-var inputFileName string
-var outputFileName string
-var domainsFileName string
-var findCommonRegexp string
+var (
+	persistentFileName string
+	inputFileName      string
+	outputFileName     string
+	domainsFileName    string
+	findCommonRegexp   string
+)
 
 var (
-	emails = map[string]struct{}{}
+	emails  = map[string]struct{}{}
 	domains = map[string]struct{}{}
 )
 
