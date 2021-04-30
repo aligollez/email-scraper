@@ -3,24 +3,27 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
-	"os"
+	"io/ioutil"
 	"regexp"
 	"strings"
 
 	"github.com/gocolly/colly"
 )
 
-var (
-	allowedDomain                  = []string{"www.prajwalkoirala.com"}
-	emailsAdded     map[string]int = make(map[string]int)
-	parallelThreads                = 25
-	err             error
-)
+var allowedDomain = []string{"www.prajwalkoirala.com"}
 
-// Type of info
+var emailsAdded map[string]int = make(map[string]int)
+
+const parallelThreads = 25
+
+// Infos info
 type Infos struct {
 	data map[string][]string
+}
+
+func writeToFile(data map[string][]string) {
+	file, _ := json.MarshalIndent(data, "", " ")
+	_ = ioutil.WriteFile("emails.json", file, 0644)
 }
 
 func main() {
@@ -44,6 +47,16 @@ func main() {
 				infos.data[e.Request.URL.Host] = append(infos.data[e.Request.URL.Host], email)
 			}
 		}
+		re2 := regexp.MustCompile(`[A-Za-z0-9]+\.[A-Za-z0-9]+\[at\][A-Za-z0-9]+\[dot\][A-Za-z0-9]+`)
+		emails2 := re2.FindAll([]byte(e.Text), -1)
+		for _, s := range emails2 {
+			email := string(s)
+			_, ok := emailsAdded[email]
+			if !ok {
+				// fmt.Println(email)
+				infos.data[e.Request.URL.Host] = append(infos.data[e.Request.URL.Host], email)
+			}
+		}
 	})
 	// On every a element which has href attribute call callback
 	c.OnHTML("a[href]", func(e *colly.HTMLElement) {
@@ -62,15 +75,4 @@ func main() {
 	c.Visit("https://" + allowedDomain[0])
 	c.Wait()
 	writeToFile(infos.data)
-}
-
-func writeToFile(data map[string][]string) {
-	file, err := json.MarshalIndent(data, "", " ")
-	if err != nil {
-		log.Println(err)
-	}
-	err = os.WriteFile("emails.json", file, 0644)
-	if err != nil {
-		log.Println(err)
-	}
 }
