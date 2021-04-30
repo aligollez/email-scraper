@@ -1,7 +1,5 @@
 ### Email scraper
 
-#### This project is part of [data-scraper](https://github.com/complexorganizations/data-scraper) ***Archived***
-
 ---
 ### Features
 - Scrape emails from any files
